@@ -19,13 +19,14 @@ The callback function should be implemented with the following signature:
 ```
 void TextureUpdateCallback(int eventID, void* data)
 {
+  auto event = (UnityRenderingExtEventType)eventID;
+  auto params = (UnityRenderingExtTextureUpdateParams*)data;
 }
 ```
 
 The type of the event will be given to `eventID`, and the attributes of the
 target texture will be given with `UnityRenderingExtTextureUpdateParams` struct
-carried by the `data` pointer (it should be typecast to
-`UnityRenderingExtTextureUpdateParams*` in the callback).
+carried by the `data` pointer.
 
 The possible values of `eventID` are defined in `UnityRenderingExtEventType`;
 Only `kUnityRenderingExtEventUpdateTextureBegin` and
@@ -57,7 +58,7 @@ This event is invoked right after updating the texture. You can safely release
 resources used to update the texture.
 
 ```
-if (eventID == kUnityRenderingExtEventUpdateTextureEnd)
+if (event == kUnityRenderingExtEventUpdateTextureEnd)
 {
   delete[] reinterpret_cast<uint32_t*>(params->texData);
 }
@@ -92,8 +93,8 @@ used as user data to the callback.
 ```
 [DllImport("DllName")] static extern IntPtr GetTextureUpdateCallback();
 
-m_callback = GetTextureUpdateCallback();
-m_CommandBuffer.IssuePluginCustomTextureUpdate(m_callback, texture, userData);
+var callback = GetTextureUpdateCallback();
+m_CommandBuffer.IssuePluginCustomTextureUpdate(callback, texture, userData);
 Graphics.ExecuteCommandBuffer(m_CommandBuffer);
 ```
 
