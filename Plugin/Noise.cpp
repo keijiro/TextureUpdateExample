@@ -1,4 +1,4 @@
-#include <memory>
+#include <cstdint>
 #include "Unity/IUnityRenderingExtensions.h"
 
 namespace
@@ -14,10 +14,10 @@ namespace
             auto params = reinterpret_cast<UnityRenderingExtTextureUpdateParams*>(data);
             auto offs = params->userData;
 
-            uint32_t* data = new uint32_t[params->width * params->height];
-            for (auto i = 0u; i < params->width * params->height; i++) data[i] = i * 149 + offs;
+            uint32_t* img = new uint32_t[params->width * params->height];
+            for (auto i = 0u; i < params->width * params->height; i++) img[i] = i * 149 + offs;
 
-            params->texData = data;
+            params->texData = img;
         }
         else if (event == kUnityRenderingExtEventUpdateTextureEnd)
         {
