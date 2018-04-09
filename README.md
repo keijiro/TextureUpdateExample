@@ -14,39 +14,39 @@ platform agnostic way.
 How to implement the CustomTextureUpdate callback
 -------------------------------------------------
 
-Signature of the callback function has to be like the following:
+The callback function should be implemented with the following signature:
 
 ```
 void TextureUpdateCallback(int eventID, void* data) { }
 ```
 
-The type of the event is given to `eventID`, and the attributes of the target
-texture are given with `UnityRenderingExtTextureUpdateParams` struct carried
-by the `data` pointer (it should be typecast to
-`UnityRenderingExtTextureUpdateParams*` before using).
+The type of the event will be given to `eventID`, and the attributes of the
+target texture will be given with `UnityRenderingExtTextureUpdateParams` struct
+carried by the `data` pointer (it should be typecast to
+`UnityRenderingExtTextureUpdateParams*` in the callback).
 
 The possible values of `eventID` are defined in `UnityRenderingExtEventType`;
 Only `kUnityRenderingExtEventUpdateTextureBegin` and
 `kUnityRenderingExtEventUpdateTextureEnd` are relevant to the texture update
 callback.
 
-### `kUnityRenderingExtEventUpdateTextureBegin`
+### `kUnityRenderingExtEventUpdateTextureBegin` event
 
 This event is invoked right before updating the texture. You can give raw image
-data to update the texture via the `texData` pointer in the parameter struct.
+data via the `texData` pointer in the parameter struct.
 
 ```
 uint8_t* img = new uint32_t[params->width * params->height * 4];
 
-... Set image data ...
+// Set image data.
 
 params->texData = img;
 ```
 
 You can also give `nullptr` to `texData` when you don't like to update the
-texture this time.
+texture in this callback.
 
-### `kUnityRenderingExtEventUpdateTextureEnd`
+### `kUnityRenderingExtEventUpdateTextureEnd` event
 
 This event is invoked right after updating the texture. You can safely release
 resources used to update the texture.
@@ -57,14 +57,12 @@ delete[] reinterpret_cast<uint32_t*>(params->texData);
 
 ### Interface function
 
-
-
-Also you have to implement the interface function that is used to retrieve
-the pointer of the callback function.
+You have to implement an interface function that is used to retrieve the
+pointer of the callback function.
 
 ```
-extern "C" UnityRenderingEventAndData UNITY_INTERFACE_EXPORT
-  GetTextureUpdateCallback()
+extern "C"
+UnityRenderingEventAndData UNITY_INTERFACE_EXPORT GetTextureUpdateCallback()
 {
     return TextureUpdateCallback;
 }
@@ -72,24 +70,22 @@ extern "C" UnityRenderingEventAndData UNITY_INTERFACE_EXPORT
 
 For further details of the plugin implementation, please see the [example
 source code](https://github.com/keijiro/TextureUpdateExample/blob/master/Plugin/Plasma.cpp)
-included in this repository.
+contained in this repository.
 
-How to use the callback from C# scripts
----------------------------------------
+How to update texture from C# script
+------------------------------------
 
-In order to request texture update from C# scripts, you can use
+In order to request texture update from a C# script, you can use
 `IssuePluginCustomTextureUpdate` with a `CommandBuffer`. The pointer to the
-callback function and a texture to be updated should be given to the command.
-You can also give a single `uint` value to the command that can be used to 
-pass user data to the callback.
+callback function and a reference to a texture object should be given to the
+command. You can also give a single `uint` value to the command that can be
+used as user data to the callback.
 
 ```
 [DllImport("DllName")] static extern IntPtr GetTextureUpdateCallback();
 
-...
-
-var callback = GetTextureUpdateCallback();
-m_CommandBuffer.IssuePluginCustomTextureUpdate(callback, texture, userData);
+m_callback = GetTextureUpdateCallback();
+m_CommandBuffer.IssuePluginCustomTextureUpdate(m_callback, texture, userData);
 Graphics.ExecuteCommandBuffer(m_CommandBuffer);
 ```
 
@@ -98,5 +94,4 @@ Platform availability
 
 At the moment of Unity 2017.2, the CustomTextureUpdate callback is only
 available in Direct3D 11, Metal and OpenGL ES. For other platforms (Vulkan,
-consoles, etc.), you have to implement the plugin without using this interface
-to update textures from native plugins.
+consoles, etc.), you have to implement the plugin without using this interface.
