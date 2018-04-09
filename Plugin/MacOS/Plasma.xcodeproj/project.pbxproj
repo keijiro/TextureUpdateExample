@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0F950BD0207B20F600AEAA84 /* Noise.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0F950BCF207B20F600AEAA84 /* Noise.cpp */; };
+		0F950BD0207B20F600AEAA84 /* Plasma.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0F950BCF207B20F600AEAA84 /* Plasma.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0F950BCF207B20F600AEAA84 /* Noise.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Noise.cpp; path = ../../Noise.cpp; sourceTree = "<group>"; };
-		0FF7A993207B1E2C00B97C44 /* Noise.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Noise.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		0F950BCF207B20F600AEAA84 /* Plasma.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Plasma.cpp; path = ../../Plasma.cpp; sourceTree = "<group>"; };
+		0FF7A993207B1E2C00B97C44 /* Plasma.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Plasma.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FF7A996207B1E2C00B97C44 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -30,7 +30,7 @@
 		0FF7A98A207B1E2C00B97C44 = {
 			isa = PBXGroup;
 			children = (
-				0FF7A995207B1E2C00B97C44 /* Noise */,
+				0FF7A995207B1E2C00B97C44 /* Plasma */,
 				0FF7A994207B1E2C00B97C44 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -38,26 +38,26 @@
 		0FF7A994207B1E2C00B97C44 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0FF7A993207B1E2C00B97C44 /* Noise.bundle */,
+				0FF7A993207B1E2C00B97C44 /* Plasma.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		0FF7A995207B1E2C00B97C44 /* Noise */ = {
+		0FF7A995207B1E2C00B97C44 /* Plasma */ = {
 			isa = PBXGroup;
 			children = (
-				0F950BCF207B20F600AEAA84 /* Noise.cpp */,
+				0F950BCF207B20F600AEAA84 /* Plasma.cpp */,
 				0FF7A996207B1E2C00B97C44 /* Info.plist */,
 			);
-			path = Noise;
+			path = Plasma;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		0FF7A992207B1E2C00B97C44 /* Noise */ = {
+		0FF7A992207B1E2C00B97C44 /* Plasma */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0FF7A999207B1E2C00B97C44 /* Build configuration list for PBXNativeTarget "Noise" */;
+			buildConfigurationList = 0FF7A999207B1E2C00B97C44 /* Build configuration list for PBXNativeTarget "Plasma" */;
 			buildPhases = (
 				0FF7A98F207B1E2C00B97C44 /* Sources */,
 				0FF7A990207B1E2C00B97C44 /* Frameworks */,
@@ -67,9 +67,9 @@
 			);
 			dependencies = (
 			);
-			name = Noise;
-			productName = Noise;
-			productReference = 0FF7A993207B1E2C00B97C44 /* Noise.bundle */;
+			name = Plasma;
+			productName = Plasma;
+			productReference = 0FF7A993207B1E2C00B97C44 /* Plasma.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -78,7 +78,7 @@
 		0FF7A98B207B1E2C00B97C44 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Keijiro Takahashi";
 				TargetAttributes = {
 					0FF7A992207B1E2C00B97C44 = {
@@ -87,7 +87,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 0FF7A98E207B1E2C00B97C44 /* Build configuration list for PBXProject "Noise" */;
+			buildConfigurationList = 0FF7A98E207B1E2C00B97C44 /* Build configuration list for PBXProject "Plasma" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -99,7 +99,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				0FF7A992207B1E2C00B97C44 /* Noise */,
+				0FF7A992207B1E2C00B97C44 /* Plasma */,
 			);
 		};
 /* End PBXProject section */
@@ -119,7 +119,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0F950BD0207B20F600AEAA84 /* Noise.cpp in Sources */,
+				0F950BD0207B20F600AEAA84 /* Plasma.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,6 +140,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -147,6 +148,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -195,6 +197,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -202,6 +205,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -235,9 +239,9 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = Noise/Info.plist;
+				INFOPLIST_FILE = Plasma/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				PRODUCT_BUNDLE_IDENTIFIER = jp.keijiro.Noise;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.keijiro.Plasma;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -251,9 +255,9 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = Noise/Info.plist;
+				INFOPLIST_FILE = Plasma/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				PRODUCT_BUNDLE_IDENTIFIER = jp.keijiro.Noise;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.keijiro.Plasma;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -264,7 +268,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0FF7A98E207B1E2C00B97C44 /* Build configuration list for PBXProject "Noise" */ = {
+		0FF7A98E207B1E2C00B97C44 /* Build configuration list for PBXProject "Plasma" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0FF7A997207B1E2C00B97C44 /* Debug */,
@@ -273,7 +277,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0FF7A999207B1E2C00B97C44 /* Build configuration list for PBXNativeTarget "Noise" */ = {
+		0FF7A999207B1E2C00B97C44 /* Build configuration list for PBXNativeTarget "Plasma" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0FF7A99A207B1E2C00B97C44 /* Debug */,
