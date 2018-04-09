@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{E929208B-AB80-4677-88BC-821AFF638A78}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Noise</RootNamespace>
+    <RootNamespace>Plasma</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -149,7 +149,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\Noise.cpp" />
+    <ClCompile Include="..\Plasma.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Unity\IUnityGraphics.h" />
