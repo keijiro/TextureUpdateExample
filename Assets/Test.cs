@@ -6,7 +6,11 @@ public class Test : MonoBehaviour
     Texture2D _texture;
     CommandBuffer _command;
 
+#if PLATFORM_IOS
+    [System.Runtime.InteropServices.DllImport("__Internal")]
+#else
     [System.Runtime.InteropServices.DllImport("Plasma")]
+#endif
     static extern System.IntPtr GetTextureUpdateCallback();
 
     void Start()
