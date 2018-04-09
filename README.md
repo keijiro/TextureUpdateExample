@@ -17,7 +17,9 @@ How to implement the CustomTextureUpdate callback
 The callback function should be implemented with the following signature:
 
 ```
-void TextureUpdateCallback(int eventID, void* data) { }
+void TextureUpdateCallback(int eventID, void* data)
+{
+}
 ```
 
 The type of the event will be given to `eventID`, and the attributes of the
@@ -36,15 +38,18 @@ This event is invoked right before updating the texture. You can give raw image
 data via the `texData` pointer in the parameter struct.
 
 ```
-uint8_t* img = new uint32_t[params->width * params->height * 4];
+if (event == kUnityRenderingExtEventUpdateTextureBegin)
+{
+  uint8_t* img = new uint32_t[params->width * params->height * 4];
 
-// Set image data.
+  // Set image data here.
 
-params->texData = img;
+  params->texData = img;
+}
 ```
 
 You can also give `nullptr` to `texData` when you don't like to update the
-texture in this callback.
+texture in this frame.
 
 ### `kUnityRenderingExtEventUpdateTextureEnd` event
 
@@ -52,7 +57,10 @@ This event is invoked right after updating the texture. You can safely release
 resources used to update the texture.
 
 ```
-delete[] reinterpret_cast<uint32_t*>(params->texData);
+if (eventID == kUnityRenderingExtEventUpdateTextureEnd)
+{
+  delete[] reinterpret_cast<uint32_t*>(params->texData);
+}
 ```
 
 ### Interface function
