@@ -19,3 +19,7 @@ Desktop.ini
 # Visual Studio
 /Plugin/Windows/.vs
 /Plugin/Windows/x64
+
+# Xcode
+xcuserdata
+*/xcuserstate
