@@ -6,12 +6,25 @@ public class Test : MonoBehaviour
     Texture2D _texture;
     CommandBuffer _command;
 
+#if UNITY_2018_3_OR_NEWER
+
+#if PLATFORM_IOS
+    [System.Runtime.InteropServices.DllImport("__Internal")]
+#else
+    [System.Runtime.InteropServices.DllImport("Plasma")]
+#endif
+    static extern System.IntPtr GetTextureUpdateCallbackV2();
+
+#else
+
 #if PLATFORM_IOS
     [System.Runtime.InteropServices.DllImport("__Internal")]
 #else
     [System.Runtime.InteropServices.DllImport("Plasma")]
 #endif
     static extern System.IntPtr GetTextureUpdateCallback();
+
+#endif
 
     void Start()
     {
@@ -34,9 +47,15 @@ public class Test : MonoBehaviour
     void Update()
     {
         // Request texture update via the command buffer.
+#if UNITY_2018_3_OR_NEWER
+        _command.IssuePluginCustomTextureUpdateV2(
+            GetTextureUpdateCallbackV2(), _texture, (uint)(Time.time * 60)
+        );
+#else
         _command.IssuePluginCustomTextureUpdate(
             GetTextureUpdateCallback(), _texture, (uint)(Time.time * 60)
         );
+#endif
         Graphics.ExecuteCommandBuffer(_command);
         _command.Clear();
 

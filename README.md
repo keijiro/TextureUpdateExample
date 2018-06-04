@@ -20,26 +20,26 @@ The callback function should be implemented with the following signature:
 void TextureUpdateCallback(int eventID, void* data)
 {
   auto event = (UnityRenderingExtEventType)eventID;
-  auto params = (UnityRenderingExtTextureUpdateParams*)data;
+  auto params = (UnityRenderingExtTextureUpdateParamsV2*)data;
 }
 ```
 
 The type of the event will be given to `eventID`, and the attributes of the
-target texture will be given with `UnityRenderingExtTextureUpdateParams` struct
+target texture will be given with `UnityRenderingExtTextureUpdateParamsV2` struct
 carried by the `data` pointer.
 
 The possible values of `eventID` are defined in `UnityRenderingExtEventType`;
-Only `kUnityRenderingExtEventUpdateTextureBegin` and
-`kUnityRenderingExtEventUpdateTextureEnd` are relevant to the texture update
+Only `kUnityRenderingExtEventUpdateTextureBeginV2` and
+`kUnityRenderingExtEventUpdateTextureEndV2` are relevant to the texture update
 callback.
 
-### `kUnityRenderingExtEventUpdateTextureBegin` event
+### `kUnityRenderingExtEventUpdateTextureBeginV2` event
 
 This event is invoked right before updating the texture. You can give raw image
 data via the `texData` pointer in the parameter struct.
 
 ```
-if (event == kUnityRenderingExtEventUpdateTextureBegin)
+if (event == kUnityRenderingExtEventUpdateTextureBeginV2)
 {
   uint8_t* img = new uint32_t[params->width * params->height * 4];
 
@@ -52,13 +52,13 @@ if (event == kUnityRenderingExtEventUpdateTextureBegin)
 You can also give `nullptr` to `texData` when you don't like to update the
 texture in this frame.
 
-### `kUnityRenderingExtEventUpdateTextureEnd` event
+### `kUnityRenderingExtEventUpdateTextureEndV2` event
 
 This event is invoked right after updating the texture. You can safely release
 resources used to update the texture.
 
 ```
-if (event == kUnityRenderingExtEventUpdateTextureEnd)
+if (event == kUnityRenderingExtEventUpdateTextureEndV2)
 {
   delete[] reinterpret_cast<uint32_t*>(params->texData);
 }
@@ -85,7 +85,7 @@ How to update texture from C# script
 ------------------------------------
 
 In order to request texture update from a C# script, you can use
-`IssuePluginCustomTextureUpdate` with a `CommandBuffer`. The pointer to the
+`IssuePluginCustomTextureUpdateV2` with a `CommandBuffer`. The pointer to the
 callback function and a reference to a texture object should be given to the
 command. You can also give a single `uint` value to the command that can be
 used as user data to the callback.
@@ -94,13 +94,13 @@ used as user data to the callback.
 [DllImport("DllName")] static extern IntPtr GetTextureUpdateCallback();
 
 var callback = GetTextureUpdateCallback();
-m_CommandBuffer.IssuePluginCustomTextureUpdate(callback, texture, userData);
+m_CommandBuffer.IssuePluginCustomTextureUpdateV2(callback, texture, userData);
 Graphics.ExecuteCommandBuffer(m_CommandBuffer);
 ```
 
 Platform availability
 ---------------------
 
-At the moment of Unity 2017.2, the CustomTextureUpdate callback is only
-available in Direct3D 11, Metal and OpenGL ES. For other platforms (Vulkan,
-consoles, etc.), you have to implement the plugin without using this interface.
+At the moment of Unity 2018.3, the CustomTextureUpdate callback is only
+available in Direct3D 11, Metal, OpenGL ES, and Nintendo Switch. For other platforms (Vulkan,
+other consoles, etc.), you have to implement the plugin without using this interface.
