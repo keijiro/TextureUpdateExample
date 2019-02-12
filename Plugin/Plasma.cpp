@@ -11,11 +11,11 @@ namespace
         auto py = (float)y / height;
         auto time = frame / 60.0f;
 
-        auto l = std::sinf(px * std::sinf(time * 1.3f) + std::sinf(py * 4 + time) * std::sinf(time));
+        auto l = sinf(px * sinf(time * 1.3f) + sinf(py * 4 + time) * sinf(time));
 
-        auto r = (uint32_t)(std::sinf(l *  6) * 127 + 127);
-        auto g = (uint32_t)(std::sinf(l *  7) * 127 + 127);
-        auto b = (uint32_t)(std::sinf(l * 10) * 127 + 127);
+        auto r = (uint32_t)(sinf(l *  6) * 127 + 127);
+        auto g = (uint32_t)(sinf(l *  7) * 127 + 127);
+        auto b = (uint32_t)(sinf(l * 10) * 127 + 127);
 
         return r + (g << 8) + (b << 16) + 0xff000000;
     }
