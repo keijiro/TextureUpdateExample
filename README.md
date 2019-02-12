@@ -102,5 +102,6 @@ Platform availability
 ---------------------
 
 At the moment of Unity 2018.3, the CustomTextureUpdate callback is only
-available in Direct3D 11, Metal, OpenGL ES, and Nintendo Switch. For other platforms (Vulkan,
-other consoles, etc.), you have to implement the plugin without using this interface.
+available in Direct3D 11, Metal, OpenGL (Core/ES), and Nintendo Switch. It's
+also available on Vulkan from Unity 2019.1. For other platforms, you have to
+implement the plugin without using this interface.
