@@ -11,6 +11,7 @@ Desktop.ini
 /*.csproj
 /*.sln
 *.swp
+*.vcxproj.user
 
 # Unity
 /Library
@@ -22,4 +23,4 @@ Desktop.ini
 
 # Xcode
 xcuserdata
-*/xcuserstate
+xcshareddata
