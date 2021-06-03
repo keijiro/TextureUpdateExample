@@ -10,7 +10,7 @@ that allows native plugins to update contents of textures in a thread safe and
 platform agnostic way.
 
 [CustomTextureUpdate]:
-  https://docs.unity3d.com/ScriptReference/Rendering.CommandBuffer.IssuePluginCustomTextureUpdate.html
+  https://docs.unity3d.com/ScriptReference/Rendering.CommandBuffer.IssuePluginCustomTextureUpdateV2.html
 
 How to implement the CustomTextureUpdate callback
 -------------------------------------------------
