@@ -14,7 +14,3 @@
 *.c         text eol=lf
 
 *.plist     text eol=lf
-
-*.sln               text eol=crlf
-*.vcxproj           text eol=crlf
-*.vcxproj.filters   text eol=crlf
