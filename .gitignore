@@ -8,6 +8,7 @@ Desktop.ini
 /UserSettings
 /Temp
 
+/Plugin/Linux/*.so
 /Plugin/MacOS/*.so
 /Plugin/MacOS/*.bundle
 /Plugin/Windows/*.dll

@@ -1,5 +1,5 @@
 gcc -Wall \
-    -O2 -fPIC -Wl,--gc-sections \
+    -O2 -rdynamic -fPIC -Wl,--gc-sections \
     -I../Unity \
-    ../Plasma.cpp \
+    ../Plasma.c \
     -shared -o libPlasma.so
