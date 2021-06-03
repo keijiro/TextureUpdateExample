@@ -12,5 +12,3 @@
 *.cpp       text eol=lf
 *.cc        text eol=lf
 *.c         text eol=lf
-
-*.plist     text eol=lf
