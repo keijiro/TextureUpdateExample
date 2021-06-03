@@ -8,6 +8,7 @@ Desktop.ini
 /UserSettings
 /Temp
 
+/Plugin/Android/*.so
 /Plugin/iOS/*.a
 /Plugin/iOS/*.o
 /Plugin/Linux/*.so
