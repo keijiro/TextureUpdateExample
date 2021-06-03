@@ -9,24 +9,24 @@ This is an example that shows how to use the [CustomTextureUpdate] callback
 that allows native plugins to update contents of textures in a thread safe and
 platform agnostic way.
 
-[CustomTextureUpdate]: https://docs.unity3d.com/ScriptReference/Rendering.CommandBuffer.IssuePluginCustomTextureUpdate.html
+[CustomTextureUpdate]:
+  https://docs.unity3d.com/ScriptReference/Rendering.CommandBuffer.IssuePluginCustomTextureUpdate.html
 
 How to implement the CustomTextureUpdate callback
 -------------------------------------------------
 
 The callback function should be implemented with the following signature:
 
-```
-void TextureUpdateCallback(int eventID, void* data)
+```c
+void TextureUpdateCallback(int eventID, void *data)
 {
-  auto event = (UnityRenderingExtEventType)eventID;
-  auto params = (UnityRenderingExtTextureUpdateParamsV2*)data;
+  UnityRenderingExtTextureUpdateParamsV2 *params = data;
 }
 ```
 
 The type of the event will be given to `eventID`, and the attributes of the
-target texture will be given with `UnityRenderingExtTextureUpdateParamsV2` struct
-carried by the `data` pointer.
+target texture will be given with `UnityRenderingExtTextureUpdateParamsV2`
+struct carried by the `data` pointer.
 
 The possible values of `eventID` are defined in `UnityRenderingExtEventType`;
 Only `kUnityRenderingExtEventUpdateTextureBeginV2` and
@@ -38,12 +38,12 @@ callback.
 This event is invoked right before updating the texture. You can give raw image
 data via the `texData` pointer in the parameter struct.
 
-```
-if (event == kUnityRenderingExtEventUpdateTextureBeginV2)
+```c
+if (eventID == kUnityRenderingExtEventUpdateTextureBeginV2)
 {
-  uint8_t* img = new uint32_t[params->width * params->height * 4];
+  uint8_t *img = malloc(params->width * params->height * 4);
 
-  // Set image data here.
+  // Fill image data here.
 
   params->texData = img;
 }
@@ -57,10 +57,10 @@ texture in this frame.
 This event is invoked right after updating the texture. You can safely release
 resources used to update the texture.
 
-```
+```c
 if (event == kUnityRenderingExtEventUpdateTextureEndV2)
 {
-  delete[] reinterpret_cast<uint32_t*>(params->texData);
+  free(params->texData);
 }
 ```
 
@@ -70,15 +70,14 @@ You have to implement an interface function that is used to retrieve the
 pointer of the callback function.
 
 ```
-extern "C"
 UnityRenderingEventAndData UNITY_INTERFACE_EXPORT GetTextureUpdateCallback()
 {
-    return TextureUpdateCallback;
+  return TextureUpdateCallback;
 }
 ```
 
-For further details of the plugin implementation, please see the [example
-source code](https://github.com/keijiro/TextureUpdateExample/blob/master/Plugin/Plasma.cpp)
+For further details of the plugin implementation, please see the
+[example source code](https://github.com/keijiro/TextureUpdateExample/blob/master/Plugin/Plasma.c)
 contained in this repository.
 
 How to update texture from C# script
@@ -97,11 +96,3 @@ var callback = GetTextureUpdateCallback();
 m_CommandBuffer.IssuePluginCustomTextureUpdateV2(callback, texture, userData);
 Graphics.ExecuteCommandBuffer(m_CommandBuffer);
 ```
-
-Platform availability
----------------------
-
-At the moment of Unity 2018.3, the CustomTextureUpdate callback is only
-available in Direct3D 11, Metal, OpenGL (Core/ES), and Nintendo Switch. It's
-also available on Vulkan from Unity 2019.1. For other platforms, you have to
-implement the plugin without using this interface.
