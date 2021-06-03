@@ -8,6 +8,8 @@ Desktop.ini
 /UserSettings
 /Temp
 
+/Plugin/iOS/*.a
+/Plugin/iOS/*.o
 /Plugin/Linux/*.so
 /Plugin/MacOS/*.so
 /Plugin/MacOS/*.bundle
