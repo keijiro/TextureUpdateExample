@@ -1,3 +1,9 @@
+// Unity Native Plugin API copyright © 2015 Unity Technologies ApS
+//
+// Licensed under the Unity Companion License for Unity - dependent projects--see[Unity Companion License](http://www.unity3d.com/legal/licenses/Unity_Companion_License).
+//
+// Unless expressly provided otherwise, the Software under this license is made available strictly on an “AS IS” BASIS WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED.Please review the license for details on these and other terms and conditions.
+
 #pragma once
 
 
@@ -59,7 +65,7 @@
 
 //     These events will be propagated to all plugins that implement void UnityRenderingExtEvent(UnityRenderingExtEventType event, void* data);
 
-enum UnityRenderingExtEventType
+typedef enum UnityRenderingExtEventType
 {
     kUnityRenderingExtEventSetStereoTarget,                 // issued during SetStereoTarget and carrying the current 'eye' index as parameter
     kUnityRenderingExtEventSetStereoEye,                    // issued during stereo rendering at the beginning of each eye's rendering loop. It carries the current 'eye' index as parameter
@@ -80,22 +86,22 @@ enum UnityRenderingExtEventType
     // keep this last
     kUnityRenderingExtEventCount,
     kUnityRenderingExtUserEventsStart = kUnityRenderingExtEventCount
-};
+} UnityRenderingExtEventType;
 
 
-enum UnityRenderingExtCustomBlitCommands
+typedef enum UnityRenderingExtCustomBlitCommands
 {
     kUnityRenderingExtCustomBlitVRFlush,                    // This event is mostly used in multi GPU configurations ( SLI, etc ) in order to allow the plugin to flush all GPU's targets
 
     // keep this last
     kUnityRenderingExtCustomBlitCount,
     kUnityRenderingExtUserCustomBlitStart = kUnityRenderingExtCustomBlitCount
-};
+} UnityRenderingExtCustomBlitCommands;
 
 /*
     This will be propagated to all plugins implementing UnityRenderingExtQuery.
 */
-enum UnityRenderingExtQueryType
+typedef enum UnityRenderingExtQueryType
 {
     kUnityRenderingExtQueryOverrideViewport             = 1 << 0,           // The plugin handles setting up the viewport rects. Unity will skip its internal SetViewport calls
     kUnityRenderingExtQueryOverrideScissor              = 1 << 1,           // The plugin handles setting up the scissor rects. Unity will skip its internal SetScissor calls
@@ -104,10 +110,10 @@ enum UnityRenderingExtQueryType
                                                                             //      and it will clear the whole render target not just per-eye on demand.
     kUnityRenderingExtQueryKeepOriginalDoubleWideWidth_DEPRECATED  = 1 << 4,           // Instructs unity to keep the original double wide width. By default unity will try and have a power-of-two width for mip-mapping requirements.
     kUnityRenderingExtQueryRequestVRFlushCallback       = 1 << 5,           // Instructs unity to provide callbacks when the VR eye textures need flushing. Useful for multi GPU synchronization.
-};
+} UnityRenderingExtQueryType;
 
 
-enum UnityRenderingExtTextureFormat
+typedef enum UnityRenderingExtTextureFormat
 {
     kUnityRenderingExtFormatNone = 0, kUnityRenderingExtFormatFirst = kUnityRenderingExtFormatNone,
 
@@ -284,15 +290,23 @@ enum UnityRenderingExtTextureFormat
     kUnityRenderingExtFormatYUV2,
 
     // Automatic formats, back-end decides
-    kUnityRenderingExtFormatLDRAuto,
-    kUnityRenderingExtFormatHDRAuto,
     kUnityRenderingExtFormatDepthAuto,
     kUnityRenderingExtFormatShadowAuto,
-    kUnityRenderingExtFormatVideoAuto, kUnityRenderingExtFormatLast = kUnityRenderingExtFormatVideoAuto, // Remove?
-};
+    kUnityRenderingExtFormatVideoAuto,
+
+    // ASTC hdr profile
+    kUnityRenderingExtFormatRGBA_ASTC4X4_UFloat,
+    kUnityRenderingExtFormatRGBA_ASTC5X5_UFloat,
+    kUnityRenderingExtFormatRGBA_ASTC6X6_UFloat,
+    kUnityRenderingExtFormatRGBA_ASTC8X8_UFloat,
+    kUnityRenderingExtFormatRGBA_ASTC10X10_UFloat,
+    kUnityRenderingExtFormatRGBA_ASTC12X12_UFloat,
+
+    kUnityRenderingExtFormatLast = kUnityRenderingExtFormatRGBA_ASTC12X12_UFloat, // Remove?
+} UnityRenderingExtTextureFormat;
 
 
-struct UnityRenderingExtBeforeDrawCallParams
+typedef struct UnityRenderingExtBeforeDrawCallParams
 {
     void*   vertexShader;                           // bound vertex shader (platform dependent)
     void*   fragmentShader;                         // bound fragment shader (platform dependent)
@@ -300,21 +314,21 @@ struct UnityRenderingExtBeforeDrawCallParams
     void*   hullShader;                             // bound hull shader (platform dependent)
     void*   domainShader;                           // bound domain shader (platform dependent)
     int     eyeIndex;                               // the index of the current stereo "eye" being currently rendered.
-};
+} UnityRenderingExtBeforeDrawCallParams;
 
 
-struct UnityRenderingExtCustomBlitParams
+typedef struct UnityRenderingExtCustomBlitParams
 {
     UnityTextureID source;                          // source texture
     UnityRenderBuffer destination;                  // destination surface
     unsigned int command;                           // command for the custom blit - could be any UnityRenderingExtCustomBlitCommands command or custom ones.
     unsigned int commandParam;                      // custom parameters for the command
     unsigned int commandFlags;                      // custom flags for the command
-};
+} UnityRenderingExtCustomBlitParams;
 
 // Deprecated. Use UnityRenderingExtTextureUpdateParamsV2 and CommandBuffer.IssuePluginCustomTextureUpdateV2 instead.
 // Only supports DX11, GLES, Metal
-struct UnityRenderingExtTextureUpdateParamsV1
+typedef struct UnityRenderingExtTextureUpdateParamsV1
 {
     void*        texData;                           // source data for the texture update. Must be set by the plugin
     unsigned int userData;                          // user defined data. Set by the plugin
@@ -324,15 +338,15 @@ struct UnityRenderingExtTextureUpdateParamsV1
     unsigned int width;                             // width of the texture
     unsigned int height;                            // height of the texture
     unsigned int bpp;                               // texture bytes per pixel.
-};
+} UnityRenderingExtTextureUpdateParamsV1;
 
 // Deprecated. Use UnityRenderingExtTextureUpdateParamsV2 and CommandBuffer.IssuePluginCustomTextureUpdateV2 instead.
 // Only supports DX11, GLES, Metal
 typedef UnityRenderingExtTextureUpdateParamsV1 UnityRenderingExtTextureUpdateParams;
 
 // Type of the "data" parameter passed when callbacks registered with CommandBuffer.IssuePluginCustomTextureUpdateV2 are called.
-// Supports DX11, GLES, Metal, and Switch (also possibly PS4 in the future)
-struct UnityRenderingExtTextureUpdateParamsV2
+// Supports DX11, GLES, Metal, and Switch (also possibly PS4, PSVita in the future)
+typedef struct UnityRenderingExtTextureUpdateParamsV2
 {
     void*        texData;                           // source data for the texture update. Must be set by the plugin
     intptr_t     textureID;                         // texture ID of the texture to be updated.
@@ -341,7 +355,7 @@ struct UnityRenderingExtTextureUpdateParamsV2
     unsigned int width;                             // width of the texture
     unsigned int height;                            // height of the texture
     unsigned int bpp;                               // texture bytes per pixel.
-};
+} UnityRenderingExtTextureUpdateParamsV2;
 
 
 // Certain Unity APIs (GL.IssuePluginEventAndData, CommandBuffer.IssuePluginEventAndData) can callback into native plugins.
@@ -356,7 +370,7 @@ extern "C" {
 // If exported by a plugin, this function will be called for all the events in UnityRenderingExtEventType
 void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API UnityRenderingExtEvent(UnityRenderingExtEventType event, void* data);
 // If exported by a plugin, this function will be called to query the plugin for the queries in UnityRenderingExtQueryType
-bool UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API UnityRenderingExtQuery(UnityRenderingExtQueryType query);
+//bool UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API UnityRenderingExtQuery(UnityRenderingExtQueryType query);
 
 #ifdef __cplusplus
 }
