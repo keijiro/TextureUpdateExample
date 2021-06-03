@@ -20,10 +20,8 @@ Desktop.ini
 /UserSettings
 /Temp
 
-# Visual Studio
+# Plugin
+/Plugin/MacOS/*.so
+/Plugin/MacOS/*.bundle
 /Plugin/Windows/.vs
 /Plugin/Windows/x64
-
-# Xcode
-xcuserdata
-xcshareddata
