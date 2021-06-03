@@ -69,7 +69,7 @@ if (event == kUnityRenderingExtEventUpdateTextureEndV2)
 You have to implement an interface function that is used to retrieve the
 pointer of the callback function.
 
-```
+```c
 UnityRenderingEventAndData UNITY_INTERFACE_EXPORT GetTextureUpdateCallback()
 {
   return TextureUpdateCallback;
@@ -89,7 +89,7 @@ callback function and a reference to a texture object should be given to the
 command. You can also give a single `uint` value to the command that can be
 used as user data to the callback.
 
-```
+```csharp
 [DllImport("DllName")] static extern IntPtr GetTextureUpdateCallback();
 
 var callback = GetTextureUpdateCallback();
